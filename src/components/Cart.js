@@ -1,33 +1,39 @@
-import { sum } from "lodash";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyCart, removeFromCart } from "../store/slices/cartSlice";
 
 const Cart = () => {
   const { products } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const totalPrice = products?.reduce((accumulator, object) => {
     return accumulator + object.price;
   }, 0);
 
+  const removeFromCartProduct = (product) => {
+    console.log(product);
+    dispatch(removeFromCart(product.id));
+  };
+
   return (
-    <div class="container p-8 mx-auto mt-12 bg-white">
-      <div class="w-full overflow-x-auto">
-        <div class="my-2">
-          <h3 class="text-xl font-bold tracking-wider">
+    <div className="container p-8 mx-auto mt-12 bg-white">
+      <div className="w-full overflow-x-auto">
+        <div className="my-2">
+          <h3 className="text-xl font-bold tracking-wider">
             Shopping Cart {products.length || 0} item
           </h3>
         </div>
-        <table class="w-full shadow-inner">
+        <table className="w-full shadow-inner">
           <thead>
-            <tr class="bg-gray-100">
-              <th class="px-6 py-3 font-bold whitespace-nowrap">Product</th>
-              <th class="px-6 py-3 font-bold whitespace-nowrap">Price</th>
-              <th class="px-6 py-3 font-bold whitespace-nowrap">Remove</th>
+            <tr className="bg-gray-100">
+              <th className="px-6 py-3 font-bold whitespace-nowrap">Product</th>
+              <th className="px-6 py-3 font-bold whitespace-nowrap">Price</th>
+              <th className="px-6 py-3 font-bold whitespace-nowrap">Remove</th>
             </tr>
           </thead>
           <tbody>
             {products.map((product, index) => {
               return (
                 <tr key={index}>
-                  <td class="p-4 px-6 text-center whitespace-nowrap">
+                  <td className="p-4 px-6 text-center whitespace-nowrap">
                     <div className="flex flex-row items-center justify-start">
                       <div className="w-10 h-10">
                         <img
@@ -39,11 +45,14 @@ const Cart = () => {
                       <p className="ml-2">{product.productName}</p>
                     </div>
                   </td>
-                  <td class="p-4 px-6 text-center whitespace-nowrap">
+                  <td className="p-4 px-6 text-center whitespace-nowrap">
                     ${product.price}
                   </td>
-                  <td class="p-4 px-6 text-center whitespace-nowrap">
-                    <button class="px-2 py-0 text-red-100 bg-red-600 rounded">
+                  <td className="p-4 px-6 text-center whitespace-nowrap">
+                    <button
+                      onClick={() => removeFromCartProduct(product)}
+                      className="px-2 py-0 text-red-100 bg-red-600 rounded"
+                    >
                       x
                     </button>
                   </td>
@@ -52,23 +61,26 @@ const Cart = () => {
             })}
 
             <tr>
-              <td class="p-4 px-6 text-center whitespace-nowrap">
-                <div class="font-bold">Total Qty - {products?.length}</div>
+              <td className="p-4 px-6 text-center whitespace-nowrap">
+                <div className="font-bold">Total Qty - {products?.length}</div>
               </td>
-              <td class="p-4 px-6 font-extrabold text-center whitespace-nowrap">
+              <td className="p-4 px-6 font-extrabold text-center whitespace-nowrap">
                 Total - {totalPrice} (include tax)
               </td>
-              <td class="p-4 px-6 text-center whitespace-nowrap">
-                <button class="px-4 py-1 text-red-600 bg-red-100">
+              <td className="p-4 px-6 text-center whitespace-nowrap">
+                <button
+                  onClick={() => dispatch(emptyCart())}
+                  className="px-4 py-1 text-red-600 bg-red-100"
+                >
                   Clear All
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="flex justify-end mt-4 space-x-2">
+        <div className="flex justify-end mt-4 space-x-2">
           <button
-            class="
+            className="
             px-6
             py-3
             text-sm text-gray-800
@@ -79,7 +91,7 @@ const Cart = () => {
             Cannel
           </button>
           <button
-            class="
+            className="
             px-6
             py-3
             text-sm text-white

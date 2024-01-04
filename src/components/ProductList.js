@@ -25,15 +25,18 @@ const ProductList = () => {
     <div className="container mx-auto my-4">
       <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 gap-4">
         {products &&
-          products.map((product, index) => (
+          products.map((product) => (
             <Product
-              key={index}
+              key={product.id}
               id={product.id}
               img={product.image}
               productName={product.title}
               description={product.description}
               price={product.price}
               color={product.color}
+              rating={product.rating}
+              category={product.category}
+              showMetaCard={true}
               addToCartProduct={addToCartProduct}
             />
           ))}

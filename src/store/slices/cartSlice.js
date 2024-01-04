@@ -11,22 +11,19 @@ export const cart = createSlice({
 
       state.products.push(payload);
     },
-    // removeSelectedIds: (state, { payload }) => {
-    //   state.selectedIds = state.selectedIds.filter(
-    //     (sid) => !payload.objectIds.includes(sid)
-    //   );
 
-    //   if (state.selectedIds.length === 0) {
-    //     state.selectedObjectType = "";
-    //   }
-    // },
-    // resetSelection: (state) => {
-    //   state.selectedIds = [];
-    //   state.selectedObjectType = "";
-    // },
+    removeFromCart: (state, { payload }) => {
+      const index = state.products.findIndex(
+        (product) => product.id === payload.id
+      );
+      state.products.splice(index, 1);
+    },
+    emptyCart: (state) => {
+      state.products = [];
+    },
   },
 });
 
-export const { addToCart } = cart.actions;
+export const { addToCart, removeFromCart, emptyCart } = cart.actions;
 
 export default cart.reducer;
