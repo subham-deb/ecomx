@@ -10,8 +10,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
-        <ProductList />
+    <div className={`dashboard-container`}>
+      <ProductList />
     </div>
   );
 };

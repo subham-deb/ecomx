@@ -3,23 +3,23 @@ import { createSlice } from "@reduxjs/toolkit";
 export const cart = createSlice({
   name: "cartProducts",
   initialState: {
-    products: [],
+    cartProducts: [],
   },
   reducers: {
     addToCart: (state, { payload }) => {
       console.log("Payload", payload);
 
-      state.products.push(payload);
+      state.cartProducts.push(payload);
     },
 
     removeFromCart: (state, { payload }) => {
-      const index = state.products.findIndex(
+      const index = state.cartProducts.findIndex(
         (product) => product.id === payload.id
       );
-      state.products.splice(index, 1);
+      state.cartProducts.splice(index, 1);
     },
     emptyCart: (state) => {
-      state.products = [];
+      state.cartProducts = [];
     },
   },
 });

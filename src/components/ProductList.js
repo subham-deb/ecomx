@@ -1,22 +1,31 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useCallback, useEffect } from "react";
 import Product from "./Product";
-import { Pagination } from "@mui/material";
 import Fallback from "./Fallback";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsAction } from "../store/thunkActions/productThunk";
 import { addToCart } from "../store/slices/cartSlice";
+import { addToWishList } from "../store/slices/wishListSlice";
 
 const ProductList = () => {
-  // const [products, setProducts] = useState([]);
   const { products, isLoading } = useSelector((state) => state.products);
+
   const dispatch = useDispatch();
-  useEffect(() => {
+
+  const memoizedGetProductsAction = useCallback(() => {
     dispatch(getProductsAction());
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    memoizedGetProductsAction();
+  }, [memoizedGetProductsAction, dispatch]);
 
   const addToCartProduct = (product) => {
     console.log(product);
     dispatch(addToCart(product));
+  };
+
+  const addToWishListProduct = (product) => {
+    dispatch(addToWishList(product));
   };
 
   if (isLoading) return <Fallback />;
@@ -38,6 +47,7 @@ const ProductList = () => {
               category={product.category}
               showMetaCard={true}
               addToCartProduct={addToCartProduct}
+              addToWishListProduct={addToWishListProduct}
             />
           ))}
       </div>

@@ -1,8 +1,10 @@
-import { CgSpinner } from "react-icons/cg";
+import { Box, CircularProgress } from "@mui/material";
 const Fallback = () => {
   return (
-    <div className="flex w-full justify-center">
-      <CgSpinner className="animate-spin text-8xl text-primary-main" />
+    <div className="flex justify-center align-middle p-4">
+      <Box>
+        <CircularProgress />
+      </Box>
     </div>
   );
 };

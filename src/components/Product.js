@@ -2,11 +2,29 @@ import React from "react";
 import { BsSuitHeartFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdOutlineLabelImportant } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Rating } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 
 const Product = (props) => {
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const [snakMessage, setSnakMessage] = React.useState();
+  const location = useLocation();
+
+  const handleClick = (snakMessage) => {
+    setSnakMessage(snakMessage);
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <div className="w-full relative group ">
       <div className="max-w-full sm:max-w-80 max-h-80 relative overflow-y-hidden border-[1px] hover:bg-slate-100">
@@ -17,7 +35,10 @@ const Product = (props) => {
           <div className="w-full h-32 absolute bg-white -bottom-[130px] group-hover:bottom-0 duration-700">
             <ul className="w-full h-full flex flex-col items-end justify-center gap-2 font-sans px-2 border-l border-r">
               <li
-                onClick={() => props.addToCartProduct(props)}
+                onClick={() => {
+                  props.addToCartProduct(props);
+                  handleClick("Item added to cart successfully!");
+                }}
                 className="text-[#767676] hover:text-black text-sm font-normal border-b-[1px] border-b-gray-200 hover:border-b-black flex  items-center justify-start gap-2 hover:cursor-pointer pb-1 duration-300 w-full"
               >
                 Add to Cart
@@ -34,17 +55,25 @@ const Product = (props) => {
                   <MdOutlineLabelImportant />
                 </span>
               </li>
-              <li className="text-[#767676] hover:text-black text-sm font-normal border-b-[1px] border-b-gray-200 hover:border-b-black flex  items-center justify-start gap-2 hover:cursor-pointer pb-1 duration-300 w-full">
-                Add to Wish List
-                <span>
-                  <BsSuitHeartFill />
-                </span>
-              </li>
+              {location.pathname !== "/wishlist" && (
+                <li
+                  onClick={() => {
+                    props.addToWishListProduct(props);
+                    handleClick("Item added to wishlist successfully!");
+                  }}
+                  className="text-[#767676] hover:text-black text-sm font-normal border-b-[1px] border-b-gray-200 hover:border-b-black flex  items-center justify-start gap-2 hover:cursor-pointer pb-1 duration-300 w-full"
+                >
+                  Add to Wish List
+                  <span>
+                    <BsSuitHeartFill />
+                  </span>
+                </li>
+              )}
             </ul>
           </div>
         )}
       </div>
-      <div className="max-w-full sm:max-w-80 py-6 flex flex-col gap-1 border-[1px] border-t-0 px-4 hover:bg-slate-100">
+      <div className="max-w-full sm:max-w-80 py-6 flex flex-col gap-1 border-[1px] border-t-0 px-4 hover:bg-slate-100 bg-slate-50">
         <div className="flex items-center justify-between ">
           <div className="flex flex-col">
             <h2 className="text-base text-black font-bold">
@@ -87,6 +116,12 @@ const Product = (props) => {
           </div>
         )}
       </div>
+
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          {snakMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
