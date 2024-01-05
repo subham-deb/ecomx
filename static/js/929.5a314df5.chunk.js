@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunke_commerce_dashboard=self.webpackChunke_commerce_dashboard||[]).push([[929],{8929:(e,a,s)=>{s.r(a),s.d(a,{default:()=>t});var c=s(2791),r=s(184);const d=c.lazy((()=>s.e(256).then(s.bind(s,4256)))),t=()=>{const[e,a]=(0,c.useState)(!1);return(0,r.jsx)("div",{className:"dashboard-container ".concat(e?"dark":"light"),children:(0,r.jsx)(d,{})})}}}]);
-//# sourceMappingURL=929.5a314df5.chunk.js.map

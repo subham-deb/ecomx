@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkecomx=self.webpackChunkecomx||[]).push([[929],{8929:(e,s,a)=>{a.r(s),a.d(s,{default:()=>r});var c=a(2791),n=a(184);const t=c.lazy((()=>a.e(256).then(a.bind(a,4256)))),r=()=>{const[e,s]=(0,c.useState)(!1);return(0,n.jsx)("div",{className:"dashboard-container",children:(0,n.jsx)(t,{})})}}}]);
+//# sourceMappingURL=929.09f7a905.chunk.js.map
